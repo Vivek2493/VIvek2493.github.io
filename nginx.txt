@@ -1,0 +1,23 @@
+REVERSE PROXY USING NGNIX
+ SECOND MACHINE
+ 
+1-apt-get install apache2
+2-rm -rf /var/www/html/index.html
+3-nano /var/www/html/index.html
+ FIRST MACHINE
+1-install ngnix
+2-check on browser
+3-tree -d /etc/ngnix/
+4-tree /etc/ngnix/sites-available
+5-rm -f /etc/ngnix/sites-enabled/*
+6-tree /etc/ngnix/sites-enabled/
+7-nano /etc/ngnix/sites-available/rp.conf
+  (server   
+        { listen 80;
+          location;
+          {proxy_pass http://192.168.66.apache server's ip;}}
+8-tree /etc/ngnix/sites-*
+9-ln -s /etc/ngnix/sites-available/rp.conf /etc/ngnix/sites-enabled/
+10-tree /etc/ngnix/sites-*
+11-ngnix -t -c /etc/ngnix/ngnix.conf
+12-service nginx restart
