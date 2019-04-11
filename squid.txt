@@ -1,0 +1,21 @@
+apt install squid
+cp /etc/squid/squid.conf{,.backup}
+grep -v "^#" /etc/squid/squid.conf.backup | grep . > /etc/squid/squid.conf
+nano /etc/squid/squid.conf
+ edit 
+    acl localnet src 192.168 ..../24
+    acl blockkeywordlist url_regex "/etc/squid/blockkeyword.lst"
+    acl acl bad-url dstdomain "/etc/squid/bad-sites.acl"
+    
+    http access deny blockkeywordlist
+    http access deny bad_url
+    http access allow localnet
+    
+nano /etc/squid/blockkeyword.lst
+    give keyword
+nano /etc/squid/bad-sites
+.yahoo.com
+got browser change proxy setting
+sysytemctl restart squid.service
+
+    
