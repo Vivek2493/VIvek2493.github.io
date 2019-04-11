@@ -1,0 +1,51 @@
+apt install -y bison flex gcc libdnet libdumbnet-dev libluajit-5.1-dev libnghttp2-dev libpcap-dev libpcre3-dev libssl-dev make openssl zlib1g-dev
+mkdir /usr/src/snort_src
+cd /usr/src/snort_src
+wget -q http://192.168.1.31/sw/security_tools/snort/daq-2.0.6.tar.gz
+
+
+tar -zxf daq-2.0.6.tar.gz
+
+
+cd daq-2.0.6
+
+
+./configure
+make
+make install
+
+cd ..
+wget -q http://192.168.1.31/sw/security_tools/snort/snort-2.9.12.tar.gz
+tar -zxf snort-2.9.12.tar.gz
+
+cd snort-2.9.12
+./configure
+make
+make install
+ldconfig
+
+cd
+ln -s /usr/local/bin/snort /usr/sbin/snort
+
+groupadd snort
+useradd snort -r -s /usr/sbin/nologin -c SNORT_IDS -g snort
+
+mkdir -p /etc/snort/rules
+mkdir /var/log/snort
+mkdir /usr/local/lib/snort_dynamicrules/
+
+cp /usr/src/snort_src/snort-2.9.12/etc/*.conf* /etc/snort/
+
+cp /usr/src/snort_src/snort-2.9.12/etc/*.map /etc/snort/
+
+touch /etc/snort/rules/{white_list,black_list,local}.rules
+
+chmod -R 777 /etc/snort/
+chmod -R 777 /var/log/snort/
+chmod -R 777 /usr/local/lib/snort_dynamicrules/
+
+chown -R snort.snort /etc/snort/
+chown -R snort.snort /var/log/snort/
+chown -R snort.snort /usr/local/lib/snort_dynamicrules/
+
+
