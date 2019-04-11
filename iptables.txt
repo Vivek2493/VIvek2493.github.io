@@ -1,0 +1,16 @@
+make to debian 
+and do similar process in both
+apt install apache2
+apt install links
+ssh shuahri@machine1 ip
+shh shuahri@machine2ip
+links http;ip
+
+
+iptables -L
+iptables -P INPUT DROP
+
+iptables -A INPUT -i lo -j ACCEPT
+
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
