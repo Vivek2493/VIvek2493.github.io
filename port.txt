@@ -1,0 +1,7 @@
+apt install apache2
+nano /var/www/html/index.html
+write something
+iptables -t nat -L
+iptables -t nat -A PREROUTING -p tcp --dport 8081 -j REDIRECT --to -port 80
+iptables -t nat -L
+go to browser type ip
