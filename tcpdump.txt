@@ -1,0 +1,5 @@
+apt install tcpdump
+apt insatll apache2
+tcpdump -n 'tcp[tcpflags]==(tcp-syn)'
+tcpdump -n 'tcp[tcpflags]==(tcp-ack)'
+tcpdump -n 'tcp[tcpflags]==(tcp-ack | tcp-syn)'
