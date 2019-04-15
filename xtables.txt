@@ -1,0 +1,23 @@
+1st deb
+
+#apt-get install xtables-addons-common  libtext-csv-xs-perl
+#cp /usr/lib/xtables-addons/xt_geoip_dl{,.backup}
+#nano /usr/lib/xtables-addons/xt_geoip_dl
+wget\
+(paste link GeoIpv6.csv.gz) \
+(paste link of GeoIpCountry.csv.gz ;
+#mkdir xtables
+#cd xtables
+#/usr/lib/xtables-addons/xt_geoip_dl
+#mkdir /usr/share/xt_geoip
+#/usr/lib/xtables-addons/xt_geoip_build -D  /usr/share/xt_geoip/ *.csv
+#ls /usr/share/xt_geoip/
+#iptables -I INPUT -m geoip --src-cc CN -j DROP
+#iptables -I INPUT -m geoip --src-cc CN -j LOG --log-level debug --log-prefix "|with love from china|"
+#iptables -L
+#tail -f /var/log/syslog
+
+
+2nd deb
+#apt-get install hping3
+#hping3 -a 1.8.1.1 192.168.x.x1stdeb1 -c1 -s --syn
