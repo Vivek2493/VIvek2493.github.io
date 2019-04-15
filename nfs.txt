@@ -1,0 +1,23 @@
+deb1 server
+#apt-get install nfs-kernel-server nfs-common
+#mkdir -p /var/nfs-1
+#touch /var/nfs-1/one.txt
+#chown nobody:nogroup /var/nfs-1/
+#chown 755 /var/nfs-1/
+#nano /etc/exports
+/var/nfs-1 192.168.Ip2nddeB(rw,sync,no_subtree_check)
+#systemctl restart nfs-kernel-server.service
+
+deb2 client
+#apt-get install nfs-common
+#mkdir -p /mnt/nfs-1
+#ls -l /mnt/nfs-1
+#mount 192.168.1stdebip:/var/nfs-1  /mnt/nfs-1/
+#touch /mnt/nfs-1/three.txt
+
+o/p
+deb1
+#ls -l /var/nfs-1
+
+deb2
+#ls -l/mnt/nfs-1
