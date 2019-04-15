@@ -1,0 +1,53 @@
+apt-get install samba
+mkdir -p /var/samba/public
+cp /etc/samba/smb.conf{,.backup}
+chown nobody:nogroup /var/samba/public
+nano /etc/samba/smb.conf
+[public]
+comment=public share access
+path=/var/samba/public
+browseable=yes
+guest ok=yes
+read only=yes
+force user=nobody
+force group=nogroup
+nano /var/samba/public/one.txt
+systemctl restart smbd
+
+Anonymous
+chmod 777 /var/samba/public
+nano /etc/samba/smb.conf
+guest ok=yes
+writeable=yes
+restart
+
+method 2 using usr
+chmod 755 /var/samba/public
+useradd -M -s /usr/sbin/nologin anu
+chown anu:anu /var/samba/public
+nano /etc/samba/smb.conf
+read only=NO
+force user=anu
+force group=anu
+restart
+..........
+    
+secure share
+mkdir -p /var/samba/demo
+nano /etc/samba/smb.conf
+[demo]
+path=/var/samba/demo/
+read only=yes
+guest ok=NO
+resatrt
+useradd -m -s /usr/sbin/nologin userone
+passwd userone
+smbpasswd -a userone
+smbpasswd -e userone
+groupadd groupone
+usermod -G groupone userone
+chgrp -R groupone /var/samba/demo/
+chmod 550 /var/samba/demo/
+restart
+
+
