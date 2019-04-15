@@ -1,0 +1,53 @@
+Forward
+apt-get install bind9 dnsutils
+cp /etc/bind/db.local /etc/bind/db.hackme.local
+nano /etc/bind/db.hackme.local
+edit
+soa dns1.hackme.local. root.hackme.local.
+020320190 serial
+;    IN NS dns1.hackme.local.
+dns1 IN A  ip of deb
+nano /etc/bind/named.conf.local
+zone "hackme.local" {
+type master;
+file "/etc/bind/db.hackme.local";
+};
+systemctl restart bind9
+named-checkconf
+named-checkzone hackme.local /etc/bind/db.hackme.local
+ 
+Reverse
+cp /etc/bind/db.127 /etc/bind/db.192
+nano /etc/bind/db.192
+edit
+soa dns1.hackme.local. root.hackme.local.
+040139190 serial no
+; IN NS dns.hackme.local.
+ip IN PTR dns.hackme.local.
+nano /etc/bind/named.conf.local
+edit
+zone "106.168.192.in-addr.arpa" {
+type master;
+file "/etc/bind/db.192";
+};
+systemctl restart bind9
+named-checkconf
+named-checkzone 106.168.192.in-addr.arpa /etc/bind/db.hackme.local
+
+{FoRward
+    in ns dns.hackme.local.
+dns IN A  192.168.100.128
+www IN CNAME sys1
+ns1 IN A 192.168.100.100
+sys1 IN A 192.168.100.101
+sys2 IN A 192.168.100.102
+sys3 IN A 192.168.100.103
+
+reverse
+ @  in ns dns.shuhari.local.
+128 IN PTR dns.shuhari.local.
+109 IN     www.
+100 IN     ns1
+101 IN     sys1
+102 IN     sys2
+103 IN     sys3}
