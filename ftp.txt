@@ -1,0 +1,18 @@
+mkdir -p /var/ftp/{downloads,uploads}
+echo file1 > /var/ftp/downloads/file1.txt
+echo file2 > /var/ftp/uploads/file2.txt
+useradd ftpuser1
+passwd ftpuser1
+nano /etc/shells
+./usr/sbin/nologin
+usermod -s /usr/sbin/nologin ftpuser1
+apt-get install vsftpd
+nano /etc/vsftpd.conf
+.w .asi.asi.ch.ch.ch.ls
+.local_root=/var/ftp/
+.seccomp_sandbox=NO
+chown nobody:nogroup /var/ftp/
+chmod a-w /var/ftp/
+chown ftpuser1:ftpuser1 /var/ftp/uploads/
+touch /etc/vsftpd.chroot_list
+restart
