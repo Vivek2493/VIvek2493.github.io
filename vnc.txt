@@ -1,0 +1,16 @@
+vnc
+apt-get install xfce4 xfce4-goodies
+startx (open terminal)
+apt-get install tightvncserver
+vncserver
+.enter passwd
+.no read only
+vncserver kill:1
+startx (file comes)
+nano .vnc/xstartup
+remove everything and keep
+# /bin
+xrdb
+startxcef4 &
+ss -a4n 5901
+(sw/uti/vnc64/downl(kar)/open in fold/put ip of ur deb:5901/put passswd)
