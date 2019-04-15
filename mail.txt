@@ -1,0 +1,77 @@
+#nano /etc/host.conf
+order hosts,find
+multi on
+#nano /etc/apt/sources.list
+#reboot
+#apt-get install postfix
+#ls -l /etc/postfix/main.cf
+#cp /etc/postfix/main.cf{,.backup}
+#nano /etc/postfix/main.cf
+(main.cf cha file madhla copy paste from sirs server)
+my network 127.0.0.1/8 192.168.X.0/24       .....<-make chng netip
+#systemctl restart postfix
+#ss -a4n
+...........
+#apt-get install mailutils
+#echo "mail body1" | mail -s "Textmail1" root
+#ls -l Maildir
+#ls -l Mail/new/
+#cat Maildir/new/155(presstab)
+#apt-get install dovecot-core dovecot-imapd
+#cp /etc/dovecot/dovecot.conf{,.backup}
+#nano /etc/dovecot/dovecot.conf
+(uncomment -> #listen=*, ::
+#nano /etc/dovecot/conf.d/10-auth.conf
+(uncomment)#disable_plaintext_auth=no .....<-makechng
+	auth mechanism=plain login   .....<-makechng
+
+#nano /etc/dovecot/conf.d/10-mail.conf
+(copy upperline paste after mbox and uncomment)#mail-location=maildir:~/maildir
+
+#nano /etc/dovecot/conf.d/10-master.conf
+(uncomment)#unit
+(uncomment)#mode
+(write)user=postfix
+	group=postfix
+(uncmnt)#}
+
+#ss -a4n
+#systemctl restart dovecot.service
+#ss -a4n
+.....................
+#adduser userone
+#adduser usertwo
+#passwd userone
+#passwd usertwo
+#telnet localhost 25
+echo localhost
+mail from:root
+rcpt to:userone
+data
+subject:Test mail | to userone
+this is a test mail from root to userone (test mail 1)
+Q
+......................
+#apt-get install apache2  php7.0  libapache2-mod-php7.0  php7.0-curl php7.0xml unzip
+#mkdir sw
+#cd sw/
+#wget -q (copy link of rainloop from sirs foldr)
+#rm /var/www/html/index.html
+#unzip raindrop-latest.zip -d/var/www/html/
+#chown www-data:www-data /var/www/html/data/
+#ls -l /var/www/html
+#restart
+..............
+
+op 1)google-IP/?admin
+uname-admin
+pw-12345
+warning -chng -abcde
+DOMAIN -> add domain ->name-shuhari.local
+IMAP 127.0.0.1 PORT 143 SMTP 127.0.0.1 PORT 25
+
+2)google- IP/
+uname- uswrone@shuihari.local
+pw-welcome123
+
+send msg to uname -usertwo@shuhari.local
