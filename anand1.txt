@@ -1,0 +1,82 @@
+/*
+	NAME : DHAVAL DABHI
+	ASSIGNMENT 3 : GRAPHICAL ANALYSIS
+	ROLL NO : TEITB38
+*/
+
+//1. 3D Pie Chart(Facebook Dataset)::
+> library(plotrix)
+> sub<-a[c('Type')]
+> b = occurences<-table(unlist(sub))
+> x <- c(22, 426, 45, 7)
+> lbl <- c("Link", "Photo", "Status", "Video")
+> png(file="fb_3Dpie.png")
+> pie3D(x,labels = lbl, explode=0.2, theta=pi/3, main = "Content Type on Facebook")
+> dev.off()
+
+//2. Bar Chart(Facebook dataset)::
+> a<- read.csv("dataset_Facebook.csv")
+> op<-aggregate(a$pagetotallikes, by=list(a$share), FUN=sum)
+> png(file="barplot_fb.png")
+> barplot(op$x, main="FB_Data", xlab="Share", ylab="Total_Likes", names=op$Group.1)
+> dev.off()
+
+//3. Boxplots(Forestfires)::
+> abc<-read.csv("forestfires.csv")
+> ip1<-abc[,c('temp','wind')]
+> png(file="Boxplot_forest.png")
+> boxplot(temp ~ wind, data=abc, xlab="Wind", ylab="Temperature", main="Foreest_fire_data")
+> dev.off()
+
+//4. Histograms(Forestfires)::
+> abc<-read.csv("forestfires.csv")
+> mno<-tail(abc)
+> v<-mno[,c('wind')]
+> png(file="Histogram_forest.png")
+> hist(v,xlab="Wind",col="green", border="red", main="Forestfire")
+> dev.off()
+
+//5. Line Graph(AirQuality)::
+> air<-airquality
+> d<-head(air)
+> v<-d[,c('Ozone','Day')]
+> png(file="LineChart_airqlty.png")
+> plot(v,type="o",xlab="Ozone",ylab="Day",main="AIRQLTY_Chart")
+> dev.off()
+
+//6. Scatterplot(Airquality)::
+> input<-air[,c('Ozone','Solar.R')]
+> png(file="Scatterplot_airqlty.png")
+> plot(x=input$Ozone,y=input$Solar.R, xlab="Ozone", ylab="Solar", xlim=c(20,200),
++ ylim=c(50,250), main="Ozone vs. Solar")
+> dev.off()
+
+//7. Scatterplot matrices(Airquality)
+
+input<-airquality
+> a<-input$Ozone
+> b<-input$Solar.R
+> c<-input$Wind
+> d<-input$Temp
+> png(file = "scatterplot_matrices22.png")
+> pairs(~ a+b+c+d,data = airquality,main = "Scatterplot Matrix")
+> dev.off()
+
+//8. pie chart colored
+a<-head(input$wind)
+> b<-head(input$day)
+> png(file = "picolor.png")
+> pie(a, b, main = "month pie chart", col = rainbow(length(a)))
+> dev.off()
+
+//9. box plot with notch
+png(file = "mtcars.png")
+> boxplot(mpg ~ cyl, data = mtcars,
++         xlab = "Number of Cylinders",
++         ylab = "Miles Per Gallon",
++         main = "Mileage Data",
++         notch = TRUE,
++         varwidth = TRUE,
++         col = c("green","yellow","purple"),
++         names = c("High","Medium","Low")
+ > dev.off()
