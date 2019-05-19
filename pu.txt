@@ -1,0 +1,78 @@
+server -----------------
+congigure dns
+dns1.shuhari.local
+go to resolve.conf
+ad server ip 
+\\\\\\\\\\
+
+dpkg-reconfigure tzdata
+apt install ntpdate
+ntpdate pool.ntp.org
+apt install ntp
+apt install puppetmaster
+iptables -I INPUT -m state --state NEW -m tcp -p tcp -dport 8140 -j ACCEPT
+
+nano /etc/apt/preferences.d/00-puppet.conf
+     edit
+			package:puppet puppet-common puppetmaster
+			pin: version 4.8*
+			pin-priority: 501
+			
+mv /etc/apt/preferences.d/00-puppet.conf /etc/apt/preferences.d/00-puppet.pref
+systemctl restart puppet
+puppet agent --enable
+
+
+puppet cert list --all
+puppet cert sign (client.shuhari.local)
+/// see the error and type the error command
+puppet cert list --all
+mkdir -p /etc/code/environments/production/manifests
+nano /etc/code/environments/production/manifests/site.pp
+/// write it
+		node default {
+				package {
+					'nmap':
+					ensure => installed
+				}
+				file {'/tmp/ex-ip':
+						ensure => present,
+						mode => "0644",
+				content => "here is my ip : ${network_ens33}.\n",
+					}
+				}
+systemctl restart puppet
+puppet agent --enable
+
+
+
+
+--------------------------------------------------
+
+for client
+//////////////////
+
+congigure dns
+dns2.shuhari.local
+go to resolve.conf
+ad server ip
+\\\\\\\\\\
+
+dpkg-reconfigure tzdata
+apt install ntpdate
+ntpdate pool.ntp.org
+apt install puppet
+apt update
+nano /etc/puppet/puppet.conf
+  edit 
+	change {master} to {agent} and write
+	server = server.shuhari.local   //server host+domain
+	
+systemctl restart puppet
+puppet agent --enable
+puppet agent --test
+
+cat /tmp/ex-ip
+
+	
+
