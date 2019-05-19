@@ -1,0 +1,76 @@
+#!/bin/bash
+
+apt-get install -y make unzip autoconf gcc libc6 apache2 apache2-utils php libgd-dev
+
+cd /tmp
+wget http://192.168.1.31/sw/nagios/nagios-4.4.3.tar.gz
+tar -zxf nagios-4.4.3.tar.gz
+cd nagios-4.4.3
+./configure --with-httpd-conf=/etc/apache2/sites-enabled
+make all
+
+
+make install-groups-users
+passwd nagios
+usermod -a -G nagios www-data
+make install
+make install-daemoninit
+make install-commandmode
+make install-config
+make install-webconf
+a2enmod rewrite
+a2enmod cgi
+iptables -I INPUT -p tcp --destination-port 80 -j ACCEPT
+htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+systemctl restart apache2
+systemctl restart nagios.service
+
+
+apt-get install -y libmcrypt-dev libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl
+gettext wget libapache2-mod-php7.0
+cd ..
+wget http://192.168.1.31/sw/nagios/nagios-plugins-release-2.2.1.tar.gz
+tar -zxf nagios-plugins-release-2.2.1.tar.gz
+cd nagios-plugins-release-2.2.1
+./tools/setup
+./configure
+make
+make install
+systemctl start nagios
+
+cd ..
+wget http://192.168.1.31/sw/nagios/pnp4nagios-0.6.26.tar.gz
+tar -zxf pnp4nagios-0.6.26
+cd pnp4nagios-0.6.26
+apt-get install -y rrdtool librrds-perl php-gd php-xml
+./configure --with-httpd-conf=/etc/apache2/sites-enabled
+make all
+make install
+make install-webconf
+make install-config
+make install-init
+systemctl daemon-reload
+systemctl enable npcd.service 
+systemctl start npcd.service
+systemctl restart apache2.service
+
+#nano /usr/local/nagios/etc/nagios.cfg 
+# go to server copy contents from nagios.cfg paste it to end
+
+#nano /usr/local/nagios/etc/objects/commands.cfg 
+# go to server copy contents from commands.cfg paste it to end
+
+systemctl restart nagios.service
+systemctl restart apache2.service
+
+#go to browser ipaddress/pnp4nagios
+rm /usr/local/pnp4nagios/share/install.php  
+
+
+#nano /usr/local/nagios/etc/objects/templates.cfg 
+# go to server copy contents from templates.cfg paste it to end
+#changes in templates.cfg  in service templates add second line as use  service-pnp
+#changes in templates.cfg  in host templates add second line as use  host-pnp
+
+systemctl restart nagios.service
+
