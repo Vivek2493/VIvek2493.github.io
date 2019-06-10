@@ -1,0 +1,32 @@
+SHOW options
+set SOURCE checkpoint.c
+SHOW options
+run
+................................................................
+email harvesting::
+kali#the harvester -d checkpoint.com(any_site_name) -l 500 -b all
+..........................................................
+script for subdomain::
+mkdir demo
+cd demo/
+(go to site and copy that url and paste it after wget as)
+wget http://www.paltalk.com
+ls
+cat index.html | grep href= | cut -d"/" -f3 | grep .paltalk.com$ | sort -u |wc -lz
+...............................................................................
+DNS enumeration
+**cmd
+nslookup
+set type=ns
+iacsd.com
+server ns2.net4india.com
+ls -d iacsd.com
+.............................................................................
+non authorative site zone transfer 
+nslookup 
+set type=ns
+zonetransfer.me
+server nszt.digi ninja
+ls -d zonetransfer.me
+...................................................................................
+SMTP enumeration 

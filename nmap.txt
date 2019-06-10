@@ -1,0 +1,8 @@
+#for version:
+nmap -sV ipaddress(for version)
+nmap -O ipaddress(for version)
+nmap -sn ip(for scanning )
+ex:nmap -sn 192.168.1.0/24
+nmap -sS ipaddress(half connect)
+nmap -sT ipaddress(full connect)
+nmap -Pn --script vuln ipaddress
