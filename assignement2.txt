@@ -1,0 +1,353 @@
+
+
+ create database project1;
+ mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| project1           |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.01 sec)
+mysql> use project1
+Database changed
+mysql> create table users(
+    -> uid int primary key,
+    -> uname varchar(30),
+    -> mobile int unique,
+    -> email varchar(50));
+Query OK, 0 rows affected (0.05 sec)
+
+
+mysql> create table dept(
+    -> deptid int primary key,
+    -> dname varchar(50),
+    -> dloc varchar(50));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table emp(
+    -> ename varchar(30),
+    -> desg varchar(30),
+    -> sal decimal(9,2),
+    -> dept varchar(50),
+    -> deptno int,
+    -> foreign key fk_d(deptno)
+    -> references dept(deptid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc emp;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| ename  | varchar(30)  | YES  |     | NULL    |       |
+| desg   | varchar(30)  | YES  |     | NULL    |       |
+| sal    | decimal(9,2) | YES  |     | NULL    |       |
+| dept   | varchar(50)  | YES  |     | NULL    |       |
+| deptno | int(11)      | YES  | MUL | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table emp
+    -> add eid int primary key;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| ename  | varchar(30)  | YES  |     | NULL    |       |
+| desg   | varchar(30)  | YES  |     | NULL    |       |
+| sal    | decimal(9,2) | YES  |     | NULL    |       |
+| dept   | varchar(50)  | YES  |     | NULL    |       |
+| deptno | int(11)      | YES  | MUL | NULL    |       |
+| eid    | int(11)      | NO   | PRI | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> select * from users;
+Empty set (0.00 sec)
+
+mysql> desc users;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| uid    | int(11)     | NO   | PRI | NULL    |       |
+| uname  | varchar(30) | YES  |     | NULL    |       |
+| mobile | int(11)     | YES  | UNI | NULL    |       |
+| email  | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create database project2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| project1           |
+| project2           |
+| sys                |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use project2;
+Database changed
+mysql> create table student(
+    -> sno int primary key,
+    -> s_name char(30),
+    -> s_class char(10),
+    -> s_addr char(50));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table teacher(
+    -> tno integer primary key,
+    -> t_name char(20),
+    -> qualification char(15),
+    -> experience int);
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> create table student_teacher(
+    -> sno int,
+    -> tno int,
+    -> subject varchar(30),
+    -> primary key(sno,tno),
+    -> foreign key fk_s(sno)
+    -> references student(sno),
+    -> foreign key fk_t(tno)
+    -> references teacher(tno));  
+    Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student_teacher;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sno     | int(11)     | NO   | PRI | NULL    |       |
+| tno     | int(11)     | NO   | PRI | NULL    |       |
+| subject | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc student;
++---------+----------+------+-----+---------+-------+
+| Field   | Type     | Null | Key | Default | Extra |
++---------+----------+------+-----+---------+-------+
+| sno     | int(11)  | NO   | PRI | NULL    |       |
+| s_name  | char(30) | YES  |     | NULL    |       |
+| s_class | char(10) | YES  |     | NULL    |       |
+| s_addr  | char(50) | YES  |     | NULL    |       |
++---------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values(121,'suresh','ditiss','pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(122,'suresh','dac','pune');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(123,'shiva','ditiss','mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(124,'shyalu','embedded','hyd');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(125,'abhi','dbda','hyd');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++-----+--------+----------+--------+
+| sno | s_name | s_class  | s_addr |
++-----+--------+----------+--------+
+| 121 | suresh | ditiss   | pune   |
+| 122 | suresh | dac      | pune   |
+| 123 | shiva  | ditiss   | mumbai |
+| 124 | shyalu | embedded | hyd    |
+| 125 | abhi   | dbda     | hyd    |
++-----+--------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc teacher;
++---------------+----------+------+-----+---------+-------+
+| Field         | Type     | Null | Key | Default | Extra |
++---------------+----------+------+-----+---------+-------+
+| tno           | int(11)  | NO   | PRI | NULL    |       |
+| t_name        | char(20) | YES  |     | NULL    |       |
+| qualification | char(15) | YES  |     | NULL    |       |
+| experience    | int(11)  | YES  |     | NULL    |       |
++---------------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into teacher values(1,'Mr.Patil','M.Tech',8);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teacher values(2,'Mr.Dev','M.Tech',6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teacher values(3,'Mr.Manu','Hacker',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teacher values(4,'Mr.Ashish','B.Tech',5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teacher values(5,'Mr.Mani','B.Tech',7);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from teacher;
++-----+-----------+---------------+------------+
+| tno | t_name    | qualification | experience |
++-----+-----------+---------------+------------+
+|   1 | Mr.Patil  | M.Tech        |          8 |
+|   2 | Mr.Dev    | M.Tech        |          6 |
+|   3 | Mr.Manu   | Hacker        |         20 |
+|   4 | Mr.Ashish | B.Tech        |          5 |
+|   5 | Mr.Mani   | B.Tech        |          7 |
++-----+-----------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> desc student_teacher;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sno     | int(11)     | NO   | PRI | NULL    |       |
+| tno     | int(11)     | NO   | PRI | NULL    |       |
+| subject | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student_teacher values(121,1,'FCN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student_teacher values(121,2,'OS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student_teacher values(122,1,'NDC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student_teacher values(124,3,'CYBER');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student_teacher values(125,4,'DCM');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENT_TEACHER;
++-----+-----+---------+
+| sno | tno | subject |
++-----+-----+---------+
+| 121 |   1 | FCN     |
+| 121 |   2 | OS      |
+| 122 |   1 | NDC     |
+| 124 |   3 | CYBER   |
+| 125 |   4 | DCM     |
++-----+-----+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TEACHER;
++-----+-----------+---------------+------------+
+| tno | t_name    | qualification | experience |
++-----+-----------+---------------+------------+
+|   1 | Mr.Patil  | M.Tech        |          8 |
+|   2 | Mr.Dev    | M.Tech        |          6 |
+|   3 | Mr.Manu   | Hacker        |         20 |
+|   4 | Mr.Ashish | B.Tech        |          5 |
+|   5 | Mr.Mani   | B.Tech        |          7 |
++-----+-----------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MIN(EXPERIENCE)
+    -> FROM TEACHER;
++-----------------+
+| MIN(EXPERIENCE) |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> insert into teacher values(6,'Mr.Chaitu','Ph.D',10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teacher values(7,'Mr.Samrat','Ph.D',9);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select t_name
+    -> FROM TEACHER;
++-----------+
+| t_name    |
++-----------+
+| Mr.Patil  |
+| Mr.Dev    |
+| Mr.Manu   |
+| Mr.Ashish |
+| Mr.Mani   |
+| Mr.Chaitu |
+| Mr.Samrat |
++-----------+
+7 rows in set (0.00 sec)
+
+mysql> select min(experience)
+    -> from teacher
+    -> group by t_name;
++-----------------+
+| min(experience) |
++-----------------+
+|               8 |
+|               6 |
+|              20 |
+|               5 |
+|               7 |
+|              10 |
+|               9 |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select t_name,min(experience)
+    -> from teacher
+    -> group by t_name;
++-----------+-----------------+
+| t_name    | min(experience) |
++-----------+-----------------+
+| Mr.Patil  |               8 |
+| Mr.Dev    |               6 |
+| Mr.Manu   |              20 |
+| Mr.Ashish |               5 |
+| Mr.Mani   |               7 |
+| Mr.Chaitu |              10 |
+| Mr.Samrat |               9 |
++-----------+-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from teacher;
++-----+-----------+---------------+------------+
+| tno | t_name    | qualification | experience |
++-----+-----------+---------------+------------+
+|   1 | Mr.Patil  | M.Tech        |          8 |
+|   2 | Mr.Dev    | M.Tech        |          6 |
+|   3 | Mr.Manu   | Hacker        |         20 |
+|   4 | Mr.Ashish | B.Tech        |          5 |
+|   5 | Mr.Mani   | B.Tech        |          7 |
+|   6 | Mr.Chaitu | Ph.D          |         10 |
+|   7 | Mr.Samrat | Ph.D          |          9 |
++-----+-----------+---------------+------------+
+7 rows in set (0.00 sec)
+mysql> select t_name from teacher where qualification='Ph.D';
++-----------+
+| t_name    |
++-----------+
+| Mr.Chaitu |
+| Mr.Samrat |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> 

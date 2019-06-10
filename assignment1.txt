@@ -1,0 +1,267 @@
+  Assignmen-1:
+
+1)Info of all employees
+mysql> select * from emp;
+
+2)Sal of emp
+mysql> select ename,sal
+    -> from emp;
+
+3)unique designation of emp
+mysql> select distinct job
+    -> from emp;
+
+4)emp_name and salary incresae by 15%
+mysql> select ename,sal,sal*1.15 "no.of Dollars"
+    -> from emp;
+
+5)employe name and job as employee&job
+mysql> select ename,job,concat(ename,'&',job)
+    -> from emp;
+
+6)Write a query in SQL to produce the output of employees as follows:
+Employee
+JONAS(manager).
+mysql> select ename,job,concat(ename,'(',job,')')
+    -> from emp;
+
+7)list employee of hiredate 
+mysql> select ename,date_format(hiredate,'%M %D')
+    -> from emp;
+
+8) no. of characters with out considering the spaces for each name.
+mysql> select ename,length(trim(ename))
+    -> from emp;
+
+9)list ename,sal and commision
+mysql> select
+    -> ename,sal,comm
+    -> from emp;
+
+10)unique dpartment with job
+mysql> select
+    -> distinct job
+    -> from emp;
+
+11)list emp who does not belong to deptno=20
+mysql> select ename
+    -> from emp
+    -> where not deptno=20;
+
+12)list emp where hiredate before 1981
+ mysql> select ename,hiredate,year(hiredate)
+    -> from emp
+    -> where year(hiredate)<1981;
+
+13)average sal of employee where job is Analyst
+mysql> select job,avg(sal)
+    -> from emp
+    -> where job="ANALYST";
+
+14)list of employe whose name is blaze
+   mysql> select ename
+    -> from emp
+    -> where ename="BLAZE";
+15)list of employes whose commision+sal >3000
+mysql> select ename,comm,sal,sum(sal)
+    -> from emp
+    -> group by comm,sal
+    -> having sum(sal)>3000;
+
+16)salary more than 3000 and increment by 25%
+mysql> select ename,sal*1.25
+    -> from emp
+    -> where sal*1.25>3000;
+17)names of employee with 6 characters
+mysql> select ename
+    -> from emp
+    -> where length(ename)=6;
+
+18)list of employee who joined in jan
+mysql> select ename,hiredate,date_format(hiredate,'%M')
+    -> from emp
+    -> where month(hiredate)="01";
+         or
+mysql> select ename,hiredate,monthname(hiredate)
+    -> from emp
+    ->  where month(hiredate)="01";
+2 rows in set (0.00 sec)
+19)list of employees and manager seperated by 'works for'
+  mysql> select ename,job,concat(ename,' works for ',job)
+    -> from emp
+    -> where job='Manager';
+
+20)list of emp whose job is clerk
+mysql> select job,ename
+    -> from emp
+    -> where job="clerk";
+21)enames>10  years
+mysql> select ename,floor(datediff(curdate(),hiredate)/365)
+    -> from emp
+    -> where floor(datediff(curdate(),hiredate)/365)>10;
+
+22)list of emp whose sal<3500
+mysql> select ename,sal
+    -> from emp
+    -> where sal<3500;
+
+23)list whose job="analyst"
+mysql> select ename,sal,job
+    -> from emp
+    -> where job="ANALYST";
+
+24)list of employees who joined in 1991
+  mysql> select ename,hiredate,year(1991)
+    -> from emp
+    -> where year(hiredate)=1991;
+Empty set (0.00 sec)
+
+25)list employees whose joined before 1 april  1991
+mysql> select ename,empno,hiredate,sal
+    -> from emp
+    -> where hiredate<'1991-05-01';
+
+26)list of employee whose job is not manager
+mysql> select ename,job
+    -> from emp
+    -> where not job="Manager";
+
+27)list employee joining date may 1991
+mysql> select ename
+    -> from emp
+    -> where hiredate='1991-01-01';
+28)
+
+29)employee details and daily wages>100
+mysql> select ename,empno,hiredate,sal,sal/30,floor(datediff(curdate(),hiredate)/365)
+    -> from emp
+    -> where sal/30>100;
+
+30)list employees retring after dec 31 1999 and after completion of 8 years of exp
+mysql> select ename,hiredate,floor(datediff(curdate(),hiredate)/365)
+    -> from emp
+    -> where floor(datediff(curdate(),hiredate)/365)=8
+    -> and hiredate<'1999-12-31';
+31)
+
+32)list of emp sal length is 6
+mysql> select ename
+    -> from emp
+    -> where length(sal)=6;
+
+##list of emp sal length is 3
+mysql> select ename,sal
+    -> from emp
+    -> where length(sal)=3;
+Empty set (0.00 sec)
+
+33)employee who joined in april
+mysql> select ename,hiredate,month(hiredate)
+    -> from emp
+    -> where month(hiredate)=04;
+34)list of emp hiredate is 19 of the month
+mysql> select ename,hiredate,
+    -> day(hiredate)
+    -> from emp
+    -> where day(hiredate)=19;
+
+35)10 years later
+mysql> select ename,job,hiredate,
+    -> date_add(hiredate,interval 10 year)'10 years later'
+    -> from emp
+    -> where job='SALESMAN';
+
+36),37)list employee deptno is 3001 or 1001
+mysql> select ename,deptno,hiredate,year(hiredate)
+    -> from emp
+    -> where deptno in(3001,1001) and year(hiredate)='1991';
+Empty set (0.00 sec)
+
+38)desigination is clerk
+mysql> select ename
+    -> from emp
+    -> where job="CLERK"
+    -> and deptno='20';
+39)list of employees
+mysql> select empno,ename,sal,job,sal*12,comm,deptno
+    -> from emp
+    -> where sal*12<34000 and comm<sal and job="SALESMAN"
+    -> and deptno='3001';
+Empty set (0.00 sec)
+
+40)desigination is clerk or manager
+mysql> select ename
+    -> from emp
+    -> where job="clerk" OR job="Manager";
+41)list of employees not in february
+mysql> select ename,monthname(hiredate)
+    -> from emp
+    -> where monthname(hiredate)!='FEBRUARY';
+
+42)employee who are in year 1991
+mysql> select ename,year(hiredate)
+    -> from emp
+    -> where year(hiredate)='1991';
+
+43)employee month june and year 1991
+mysql> select ename,hiredate,month(hiredate),year(hiredate)
+    -> from emp
+    -> where month(hiredate)=06 and year(hiredate)=1991;
+Empty set (0.00 sec)
+
+mysql> select ename,hiredate,month(hiredate),year(hiredate),
+    -> date_format(hiredate,'%M')
+    -> from emp
+    -> where month(hiredate)=06 and year(hiredate)=1981;
+
+44)salary between 24000 and 50000
+mysql> select ename
+    -> from emp
+    -> where sal between 24000 and 50000;
+
+##annual salary between 24000 and 50000
+mysql> select ename,sal*12
+    -> from emp
+    -> where sal*12 between 25000 and 50000
+    -> ;
+
+45)employees of hiredate is march,june,december
+mysql> select ename,hiredate
+    -> from emp
+    -> where hiredate='01-05-1991'
+    -> and
+    -> hiredate='20-02-1991'
+    -> and
+    -> hiredate='03-12-1991';
+
+46) 
+
+47)list employee whose month is june and year=1992
+select ename,monthname(hiredate),year(hiredate)
+    -> from emp
+    -> where monthname(hiredate)>'june' and year(hiredate)=1992select ename,monthname(hiredate),year(hiredate)
+    -> from emp
+    -> where monthname(hiredate)>'june' and year(hiredate)=1981;;
+
+48)list of employee whose hiredate
+mysql> select ename,hiredate,year(hiredate)
+    -> from emp
+    -> where year(hiredate)=1990;
+Empty set (0.00 sec)
+
+49)list of employee where job="manager" from deptno=1001 or 2001
+mysql> select ename,job,deptno
+    -> from emp
+    -> where deptno in(1001,2001) and job="Manager";
+
+50)Employees of salary range between 1001 to 2000
+mysql> select ename,sal,hiredate,month(hiredate)
+    -> from emp
+    -> where month(hiredate)=2 and sal between 1001 and 2000;
+
+51)list of employee whose are in before and after 1991
+mysql> select ename,year(hiredate)
+    -> from emp
+    -> where year(hiredate)<1991 or year(hiredate)>1991;
+Empty set (0.00 sec)
+
