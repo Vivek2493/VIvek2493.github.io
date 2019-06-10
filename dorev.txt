@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "please enter class C IP network range"
+echo "example - 192.168.1"
+read range
+echo -------
+for ip in `seq 1 254`;do
+ping $range.$ip -c 1|grep "ttl" |cut -d" " -f4 |cut -d":" -f1
+#ping $range.$ip -c 1|grep "bytes from"| cut -d" " -f4 | cut -d":" -f1
+done
