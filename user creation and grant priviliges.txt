@@ -1,0 +1,2 @@
+create user 'username'@'localhost' identified by 'password';
+grant select,insert,update,drop on databasename.tablename to 'username'@'localhost';
