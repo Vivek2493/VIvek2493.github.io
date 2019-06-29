@@ -1,0 +1,18 @@
+Create CA key and certificate---->
+
+openssl genrsa -des3 -out rootCA.key 4096
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.crt
+
+Create A's key and certificate--->
+
+openssl genrsa -out a.key 2048
+openssl req -new -key a.key -out a.csr
+openssl x509 -req -in a.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out a.crt -days 500 -sha256
+openssl pkcs12 -export -in a.crt -inkey a.key -out a.p12
+
+Create B' key and certificate--->
+
+openssl genrsa -out b.key 2048
+openssl req -new -key b.key -out b.csr
+openssl x509 -req -in b.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out b.crt -days 500 -sha256
+openssl pkcs12 -export -in b.crt -inkey b.key -out b.p12
